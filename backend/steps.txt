@@ -1,0 +1,28 @@
+1. server
+2. app
+3. models (in user model specifi the roles)
+4. routes
+5. controllers
+
+6. Authentication (
+        POST /api/auth/register --> hash password + save user
+        POST /api/auth/login --> check email/password + generate JWT + frontend stores token + send token with reqs + auth middleware + req.user (store the logged in user after getting it by token not hard coded password)
+        GET  /api/auth/me
+   )
+7. protect the routes
+8. error handling middleware
+9. then build frontend
+
+
+
+
+
+
+
+const response = await fetch("http://localhost:3000/api/auth/me", {
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
+});
+
+const user = await response.json();
