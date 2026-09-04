@@ -1,13 +1,15 @@
 const app = require("./src/app")
 const mongoose = require("mongoose")
 
-const PORT = 3000;
+const port = process.env.PORT;
 
-app.listen(PORT, () => {
-    console.log(`server is running on ${PORT}`);
+app.listen(port, () => {
+    console.log(`server is running on ${port}`);
 })
 
-mongoose.connect("mongodb+srv://ammar_mohammed:admin123@cluster0.bdipxqy.mongodb.net/?appName=Cluster0")
+
+const URI = process.env.MONGODB_URI;
+mongoose.connect(URI)
     .then(() => {
         console.log("db is connected");
     })
