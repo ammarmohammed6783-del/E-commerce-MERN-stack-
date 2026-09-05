@@ -9,9 +9,10 @@
         POST /api/auth/login --> check email/password + generate JWT + frontend stores token + send token with reqs + auth middleware + req.user (store the logged in user after getting it by token not hard coded password)
         GET  /api/auth/me
    )
-7. protect the routes
-8. error handling middleware
-9. then build frontend
+6. protect the routes
+
+7. error handling middleware
+8. then build frontend
 
 
 
