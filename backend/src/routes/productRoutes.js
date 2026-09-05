@@ -7,10 +7,9 @@ const restrictTo = require("../middleware/restrictTo")
 const validate = require("../middleware/validate");
 const {
     createProductSchema,
-    updateProductSchema
+    updateProductSchema,
+    reviewSchema
 } = require("../schemas/productSchema");
-const { reviewSchema } = require("../schemas/productSchema");
-
 
 
 router.get("/", authMiddleware, productController.getProducts);
