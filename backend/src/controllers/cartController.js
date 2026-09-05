@@ -12,6 +12,50 @@ exports.getAllCartItems = async (req, res, next) => {
     }
 }
 
+exports.addCartItem = async (req, res, next) => {
+    try {
+        const { product, variant, quantity } = req.body;
+
+        let cart = await Cart.findOne({
+            user: req.userId
+        });
+
+        // If user doesn't have a cart yet
+        if (!cart) {
+            cart = await Cart.create({
+                user: req.userId,
+                items: [
+                    {
+                        product,
+                        variant,
+                        quantity
+                    }
+                ]
+            });
+        } else {
+            // User already has a cart
+            cart.items.push({
+                product,
+                variant,
+                quantity
+            });
+
+            await cart.save();
+        }
+
+        res.status(201).json({
+            msg: "Cart item added successfully",
+            cart
+        });
+
+    } catch (err) {
+        next(AppError(
+            "Something went wrong while adding the cart item",
+            500
+        ));
+    }
+};
+
 exports.updateCartItem = async (req, res, next) => {
     try {
         const updatedItem = await Cart.findByIdAndUpdate(req.params.id, req.body);

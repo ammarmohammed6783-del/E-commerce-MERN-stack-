@@ -25,7 +25,7 @@ router.post(
 );
 
 
-router.put(
+router.patch(
     "/:id",
     authMiddleware,
     restrictTo("admin"),
@@ -33,8 +33,16 @@ router.put(
     productController.updateProduct
 );
 
+router.delete(
+    "/:id",
+    authMiddleware,
+    restrictTo("admin"),
+    productController.deleteProduct
+);
+
+
 router.post(
-    "/:id/review",
+    "/review/:id",
     authMiddleware,
     validate(reviewSchema),
     productController.createReview

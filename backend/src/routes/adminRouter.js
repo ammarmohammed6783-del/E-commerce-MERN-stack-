@@ -6,7 +6,6 @@ const authMiddleware = require("../middleware/authMiddleware");
 const restrictTo = require("../middleware/restrictTo");
 
 const adminController = require("../controllers/adminController");
-const authController = require("../controllers/authController");
 
 const validate = require("../middleware/validate");
 const { inviteAdminSchema } = require("../schemas/adminSchema");
@@ -30,7 +29,7 @@ router.post(
 
 router.post(
     "/accept-invitation",
-    authController.acceptInvitation
+    adminController.acceptInvitation
 );
 
 

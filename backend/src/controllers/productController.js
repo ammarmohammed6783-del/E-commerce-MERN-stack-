@@ -72,5 +72,34 @@ exports.deleteProduct = async (req, res) => {
 };
 
 exports.createReview = async (req, res, next) => {
-    
-}
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if (!product) {
+            return res.status(404).json({
+                error: "Product not found"
+            });
+        }
+
+        const { stars, review } = req.body;
+
+        product.reviews.push({
+            user: req.userId,
+            stars,
+            review
+        });
+
+        await product.save();
+
+        res.status(201).json({
+            message: "Review added successfully",
+            review: {
+                stars,
+                review
+            }
+        });
+
+    } catch (err) {
+        next(err);
+    }
+};

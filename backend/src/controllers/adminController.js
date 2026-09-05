@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const AppError = require("../utils/AppError")
 
@@ -47,6 +49,7 @@ exports.inviteAdmin = async (req, res, next) => {
         });
 
     } catch (err) {
+        console.log(err);
         const error = new AppError("error inviting the new admin", 500)
         next(error);
     }
@@ -126,5 +129,55 @@ exports.patchAdmin = async (req, res, next) => {
 
     } catch (err) {
         next(new AppError("Error updating account", 500));
+    }
+};
+
+
+
+exports.acceptInvitation = async (req, res, next) => {
+    try {
+        const { token, password } = req.body;
+
+        console.log("TOKEN FROM REQUEST:", token);
+
+        const userByToken = await User.findOne({
+            invitationToken: token
+        });
+
+        console.log("USER WITH TOKEN:", userByToken);
+
+        if (!userByToken) {
+            return res.status(400).json({
+                msg: "Invitation token not found"
+            });
+        }
+
+        console.log("EXPIRES:", userByToken.invitationExpires);
+        console.log("NOW:", Date.now());
+
+        if (userByToken.invitationExpires <= Date.now()) {
+            return res.status(400).json({
+                msg: "Invitation has expired"
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        userByToken.password = hashedPassword;
+        userByToken.invitationToken = undefined;
+        userByToken.invitationExpires = undefined;
+        userByToken.isActive = true;
+
+        await userByToken.save();
+
+        res.status(200).json({
+            msg: "Admin account activated successfully"
+        });
+
+    } catch (err) {
+        next(new AppError(
+            "error accepting the invitation",
+            500
+        ));
     }
 };
