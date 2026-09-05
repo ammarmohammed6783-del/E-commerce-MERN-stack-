@@ -20,13 +20,13 @@ async function createAdmin() {
     }
 
     await User.create({
-        userName: "Admin",
+        userName: "superAdmin",
         email: process.env.ADMIN_EMAIL,
         password,
-        role: "admin"
+        role: "superAdmin"
     });
 
-    console.log("Admin created");
+    console.log("superAdmin created");
 
     process.exit();
 }

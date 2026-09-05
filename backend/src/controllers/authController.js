@@ -110,6 +110,45 @@ exports.register = async (req, res, next) => {
     }
 };
 
+
+
+
+
+
+exports.acceptInvitation = async (req, res, next) => {
+    try {
+        const { token, password } = req.body;
+
+        const user = await User.findOne({
+            invitationToken: token,
+            invitationExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({
+                msg: "Invalid or expired invitation"
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        user.password = hashedPassword;
+        user.invitationToken = undefined;
+        user.invitationExpires = undefined;
+        user.isActive = true;
+
+        await user.save();
+
+        res.status(200).json({
+            msg: "Admin account activated successfully"
+        });
+
+    } catch (err) {
+        const error = new AppError("error accepting the invitation", 500)
+        next(error);
+    }
+};
+
 /*
     sign: to create a token
     verifing: to ensure a token is valid and untampered

@@ -1,26 +1,30 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    userName: {
-        type: String,
-        required: true
-    },
+    userName: String,
 
     email: {
         type: String,
-        required: true,
         unique: true
     },
 
     password: {
-        type: String,
-        required: true
+        type: String
     },
 
     role: {
         type: String,
-        enum: ["user", "admin"], // enum means the value is restricted to a specific list of allowed values.
+        enum: ["user", "admin", "superAdmin"], // enum means the value is restricted to a specific list of allowed values.
         default: "user"
+    },
+
+    invitationToken: String,
+
+    invitationExpires: Date,
+
+    isActive: {
+        type: Boolean,
+        default: true
     }
 });
 
