@@ -69,7 +69,7 @@ exports.getMe = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, userName } = req.body;
 
         // 1. Check if user already exists
         const existingUser = await User.findOne({ email });

@@ -19,3 +19,5 @@ app.use("/products", productRoutes);
 app.use(errorMiddleware)
 
 module.exports = app;
+
+// npx nodemon server.js

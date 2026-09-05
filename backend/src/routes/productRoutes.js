@@ -12,7 +12,7 @@ const {
 } = require("../schemas/productSchema");
 
 
-router.get("/", authMiddleware, productController.getProducts);
+router.get("/", productController.getProducts); // remove authMiddleware bec i can show them to anyone even if he is not logged in
 router.get("/:id", authMiddleware, productController.getProductById);
 
 // used by admin

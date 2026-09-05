@@ -1,8 +1,8 @@
 const Product = require("../models/product");
 const AppError = require("../utils/AppError")
 
-// GET /api/products            -> all products
-// GET /api/products?category=casual -> filtered by category
+// GET /products            -> all products
+// GET /products?category=casual -> filtered by category
 exports.getProducts = async (req, res, next) => {
     try {
         const filter = {};

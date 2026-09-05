@@ -1,3 +1,5 @@
+const { z } = require("zod");
+
 const addToCartSchema = z.object({
     product: z
         .string()
