@@ -11,8 +11,16 @@
    )
 6. protect the routes
 
-7. error handling middleware
-8. then build frontend
+7. Authorization (
+        POST   /admins            → admin creates admin
+        GET    /admins            → list admins
+        DELETE /admins/:id        → remove admin
+        PATCH  /admins/:id       → change admin/account status
+)
+7. restricted to middleware
+
+8. error handling middleware
+9. then build frontend
 
 
 
