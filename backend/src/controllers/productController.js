@@ -1,8 +1,9 @@
 const Product = require("../models/product");
+const AppError = require("../utils/AppError")
 
 // GET /api/products            -> all products
 // GET /api/products?category=casual -> filtered by category
-exports.getProducts = async (req, res) => {
+exports.getProducts = async (req, res, next) => {
     try {
         const filter = {};
         if (req.query.category) {
@@ -11,12 +12,13 @@ exports.getProducts = async (req, res) => {
         const products = await Product.find(filter);
         res.json(products);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        const error = AppError("something went wrong fetching data", 500)
+        next(error)
     }
 };
 
 // GET /api/products/:id
-exports.getProductById = async (req, res) => {
+exports.getProductById = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product) {
@@ -24,7 +26,8 @@ exports.getProductById = async (req, res) => {
         }
         res.json(product);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        const error = AppError("something went wrong fetching data", 500)
+        next(error)
     }
 };
 

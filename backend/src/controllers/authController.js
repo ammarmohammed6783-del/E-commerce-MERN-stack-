@@ -1,8 +1,9 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const AppError = require("../utils/AppError")
 
-exports.signin = async (req, res) => {
+exports.signin = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
@@ -38,15 +39,12 @@ exports.signin = async (req, res) => {
         });
 
     } catch (err) {
-        console.error(err);
-
-        res.status(500).json({
-            msg: "Can't sign in"
-        });
+        const error = new AppError("Something went wrong while signing in", 500)
+        next(error);
     }
 };
 
-exports.getMe = async (req, res) => {
+exports.getMe = async (req, res, next) => {
     try {
         const userId = req.userId;
 
@@ -62,15 +60,14 @@ exports.getMe = async (req, res) => {
             loggedInUser
         })
     } catch (err) {
-        res.status(404).json({
-            msg: "couldn't found him"
-        })
+        const error = new AppError("Something went wrong while getting the user", 500);
+        next(error)
     }
 }
 
 
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
@@ -108,9 +105,8 @@ exports.register = async (req, res) => {
     } catch (err) {
         console.error(err);
 
-        res.status(500).json({
-            msg: "Can't sign up"
-        });
+        const error = new AppError("something went wrong on registeration", 500)
+        next(error)
     }
 };
 
