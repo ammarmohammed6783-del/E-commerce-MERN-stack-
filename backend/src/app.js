@@ -14,7 +14,7 @@ app.use(express.json())
 app.use("/auth", authRouter)
 app.use("/admins", adminRouter)
 app.use("/cart", cartRoutes) 
-app.use("/api/products", productRoutes);
+app.use("/products", productRoutes);
 
 app.use(errorMiddleware)
 

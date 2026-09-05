@@ -8,6 +8,8 @@ const restrictTo = require("../middleware/restrictTo");
 const adminController = require("../controllers/adminController");
 const authController = require("../controllers/authController");
 
+const validate = require("../middleware/validate");
+const { inviteAdminSchema } = require("../schemas/adminSchema");
 
 router.get(
     "/",
@@ -21,6 +23,7 @@ router.post(
     "/invite",
     authMiddleware,
     restrictTo("superAdmin"),
+    validate(inviteAdminSchema),
     adminController.inviteAdmin
 );
 

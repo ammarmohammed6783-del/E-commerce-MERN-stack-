@@ -2,7 +2,7 @@
 2. app
 3. models (in user model specifi the roles)
 4. routes
-5. controllers
+5. controllers with validation (password not less than 5, email has @)
 
 6. Authentication (
         POST /api/auth/register --> hash password + save user
@@ -20,8 +20,8 @@
 7. restricted to middleware
 
 8. error handling middleware
-9. then build frontend
-
+9. then build frontend ui + connecting it to API
+10. deployment
 
 
 
