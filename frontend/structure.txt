@@ -34,6 +34,20 @@ frontend/
 │
 ├── features/                   # ⭐ Main feature-based code
 │   │
+│   ├── home/
+│   │   ├── components/
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Categories.tsx
+│   │   │   ├── FeaturedProducts.tsx
+│   │   │   ├── Offers.tsx
+│   │   │   └── HomeFooter.tsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── homeApi.ts
+│   │   │
+│   │   └── types/
+│   │       └── home.types.ts
+|   |
 │   ├── auth/
 │   │   ├── components/
 │   │   │   ├── LoginForm.tsx

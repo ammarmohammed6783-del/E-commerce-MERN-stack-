@@ -1,9 +1,39 @@
-import Landing from "@/features/home/components/Landing";
+"use server";
 
-export default function Home() {
+import Card from "@/components/Card";
+import Landing from "@/features/home/components/Landing";
+import getNewArrivals from "@/features/home/services/newArrivals";
+
+export default async function Home() {
+  const data = await getNewArrivals();
+
   return (
     <div>
       <Landing />
+
+      <section className="bg-stone-100 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-col gap-4 border-b border-stone-300 pb-6 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-emerald-700">
+                Curated for you
+              </p>
+              <h2 className="text-4xl font-black uppercase leading-none tracking-tight text-stone-950 sm:text-5xl">
+                New arrivals
+              </h2>
+            </div>
+            <p className="max-w-xs text-sm leading-6 text-stone-500">
+              Fresh silhouettes and everyday essentials for your next rotation.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {data.map((card) => (
+              <Card product={card} key={card._id} />
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
