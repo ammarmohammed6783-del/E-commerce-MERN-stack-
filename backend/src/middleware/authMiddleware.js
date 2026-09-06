@@ -10,11 +10,11 @@ const authMiddleware = (req, res, next) => {
             });
         }
 
-        const token = authHeader.split(" ")[1];
+        const accessToken = authHeader.split(" ")[1];
 
         const decoded = jwt.verify(
-            token,
-            process.env.SECRET_KEY
+            accessToken,
+            process.env.ACCESS_TOKEN_SECRET
         );
 
         req.userId = decoded.userId; // It's simply copying the user ID from the verified JWT payload into req.userId.

@@ -26,16 +26,28 @@ exports.signin = async (req, res, next) => {
         }
 
         // 3. Create JWT
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
             { userId: user._id },
-            process.env.SECRET_KEY,
-            { expiresIn: "7d" }
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "15m" }
         );
 
+        const refreshToken = jwt.sign(
+            { userId: user._id },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: "7d" }
+        )
+
         // 4. Send token
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict"
+        });
+
         res.status(200).json({
             msg: "Signed in successfully",
-            token
+            accessToken
         });
 
     } catch (err) {
@@ -90,23 +102,70 @@ exports.register = async (req, res, next) => {
         });
 
         // 4. Create JWT
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
             { userId: user._id },
-            process.env.SECRET_KEY,
-            { expiresIn: "7d" }
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "15m" }
         );
 
+        const refreshToken = jwt.sign(
+            { userId: user._id },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: "7d" }
+        )
+
+
         // 5. Send response
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict"
+        });
+
         res.status(201).json({
             msg: "Signed up successfully",
-            token
+            accessToken
         });
 
     } catch (err) {
-        console.error(err);
-
         const error = new AppError("something went wrong on registeration", 500)
         next(error)
+    }
+};
+
+exports.refresh = (req, res, next) => {
+    try {
+        const { refreshToken } = req.cookies;
+
+        if (!refreshToken) {
+            return res.status(401).json({
+                msg: "Refresh token is required"
+            });
+        }
+
+        const decoded = jwt.verify(
+            refreshToken,
+            process.env.REFRESH_TOKEN_SECRET
+        );
+
+        const newAccessToken = jwt.sign(
+            { userId: decoded.userId },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "15m" }
+        );
+
+        res.status(200).json({
+            msg: "Access token refreshed successfully",
+            newAccessToken
+        });
+
+    } catch (err) {
+        const error = new AppError(
+            "Invalid or expired refresh token",
+            401
+        );
+
+        next(error);
     }
 };
 
