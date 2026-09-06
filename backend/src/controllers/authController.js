@@ -169,6 +169,27 @@ exports.refresh = (req, res, next) => {
     }
 };
 
+exports.logout = (req, res, next) => {
+    try {
+        res.clearCookie("refreshToken", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict"
+        });
+
+        res.status(200).json({
+            msg: "Logged out successfully"
+        });
+    } catch (err) {
+        const error = new AppError(
+            "Invalid or expired refresh token",
+            401
+        );
+
+        next(error);
+    }
+}
+
 /*
     sign: to create a token
     verifing: to ensure a token is valid and untampered
