@@ -1,0 +1,110 @@
+frontend/
+│
+├── app/                         # Next.js routing only
+│   │
+│   ├── login/
+│   │   └── page.tsx
+│   │
+│   ├── register/
+│   │   └── page.tsx
+│   │
+│   ├── products/
+│   │   ├── page.tsx
+│   │   └── [id]/
+│   │       └── page.tsx
+│   │
+│   ├── cart/
+│   │   └── page.tsx
+│   │
+│   ├── admin/
+│   │   ├── page.tsx
+│   │   ├── products/
+│   │   │   ├── page.tsx
+│   │   │   ├── create/
+│   │   │   │   └── page.tsx
+│   │   │   └── [id]/
+│   │   │       └── page.tsx
+│   │   │
+│   │   └── users/
+│   │       └── page.tsx
+│   │
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+│
+├── features/                   # ⭐ Main feature-based code
+│   │
+│   ├── auth/
+│   │   ├── components/
+│   │   │   ├── LoginForm.tsx
+│   │   │   ├── RegisterForm.tsx
+│   │   │   └── LogoutButton.tsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── authApi.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── auth.types.ts
+│   │   │
+│   │   └── hooks/
+│   │       └── useAuth.ts
+│   │
+│   ├── products/
+│   │   ├── components/
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductList.tsx
+│   │   │   ├── ProductDetails.tsx
+│   │   │   └── ProductReviews.tsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── productApi.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── product.types.ts
+│   │   │
+│   │   └── hooks/
+│   │       └── useProducts.ts
+│   │
+│   ├── cart/
+│   │   ├── components/
+│   │   │   ├── CartItem.tsx
+│   │   │   ├── CartList.tsx
+│   │   │   └── CartSummary.tsx
+│   │   │
+│   │   ├── services/
+│   │   │   └── cartApi.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── cart.types.ts
+│   │   │
+│   │   └── hooks/
+│   │       └── useCart.ts
+│   │
+│   └── admin/
+│       ├── components/
+│       │   ├── AdminNavbar.tsx
+│       │   ├── ProductForm.tsx
+│       │   ├── ProductTable.tsx
+│       │   └── UserTable.tsx
+│       │
+│       ├── services/
+│       │   └── adminApi.ts
+│       │
+│       ├── types/
+│       │   └── admin.types.ts
+│       │
+│       └── hooks/
+│           └── useAdmin.ts
+│
+├── components/                 # ⭐ Shared components
+│   ├── Navbar.tsx
+│   ├── Footer.tsx
+│   ├── Button.tsx
+│   ├── Loading.tsx
+│   └── Modal.tsx
+│
+├── lib/                        # ⭐ General configuration/utilities
+│   ├── api.ts
+│   └── utils.ts
+│
+└── ...
