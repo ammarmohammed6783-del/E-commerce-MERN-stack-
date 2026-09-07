@@ -4,6 +4,14 @@ import Card from "@/components/Card";
 import Landing from "@/features/home/components/Landing";
 import getNewArrivals from "@/features/home/services/newArrivals";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
 export default async function Home() {
   const data = await getNewArrivals();
 
@@ -27,10 +35,18 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {data.map((card) => (
-              <Card product={card} key={card._id} />
-            ))}
+          <div>
+            <Carousel>
+              <CarouselContent>
+                {data.map((card) => (
+                  <CarouselItem className="md:basis-1/2 lg:basis-1/3" key={card._id} >
+                    <Card product={card}/>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselNext />
+              <CarouselPrevious />
+            </Carousel>
           </div>
         </div>
       </section>

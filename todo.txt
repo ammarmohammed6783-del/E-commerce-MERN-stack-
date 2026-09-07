@@ -1,0 +1,4 @@
+2. handle the stay updated card style
+3. handle the card data and if needed the model of the produc
+4. add in product schema how many times sold 
+5. generate the top selling products in web

@@ -6,14 +6,22 @@ const AppError = require("../utils/AppError")
 exports.getProducts = async (req, res, next) => {
     try {
         const filter = {};
+
         if (req.query.category) {
             filter.category = req.query.category;
         }
-        const products = await Product.find(filter);
+
+        const limit = Number(req.query.limit) || 0;
+
+        const products = await Product
+            .find(filter)
+            .sort({ createdAt: -1 })
+            .limit(limit);
+
         res.json(products);
     } catch (err) {
-        const error = AppError("something went wrong fetching data", 500)
-        next(error)
+        const error = AppError("something went wrong fetching data", 500);
+        next(error);
     }
 };
 
