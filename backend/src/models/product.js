@@ -65,7 +65,12 @@ const productSchema = new Schema(
             enum: ["casual", "formal", "gym", "party"]
         },
         variants: [variantSchema],
-        reviews: [reviewSchema]
+        reviews: [reviewSchema],
+        soldCount: {
+            type: Number,
+            default: 0,
+            min: 0
+        }
     },
     {
         timestamps: true

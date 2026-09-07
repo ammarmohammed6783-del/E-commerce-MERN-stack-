@@ -41,6 +41,11 @@ const createProductSchema = z.object({
     category: z
         .enum(["casual", "formal", "gym", "party"]),
 
+    soldCount: z
+        .number()
+        .min(0)
+        .default(0),
+
     variants: z
         .array(variantSchema)
         .min(1, "Product must have at least one variant")

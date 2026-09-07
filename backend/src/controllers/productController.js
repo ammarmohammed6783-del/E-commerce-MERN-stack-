@@ -25,6 +25,21 @@ exports.getProducts = async (req, res, next) => {
     }
 };
 
+
+exports.getTopSelling = async (req, res, next) => {
+    try {
+        const products = await Product.find()
+            .sort({ soldCount: -1 })
+            .limit(5);
+
+        res.status(200).json(products);
+    } catch (err) {
+        const error = AppError("something went wrong fetching data", 500)
+        next(error)
+    }
+};
+
+
 // GET /api/products/:id
 exports.getProductById = async (req, res, next) => {
     try {
@@ -45,7 +60,13 @@ exports.getProductById = async (req, res, next) => {
 // POST /api/products
 exports.createProduct = async (req, res) => {
     try {
+        console.log("BODY:", req.body);
+        console.log("SOLD COUNT:", req.body.soldCount);
+
         const product = await Product.create(req.body);
+
+        console.log("CREATED PRODUCT:", product);
+
         res.status(201).json(product);
     } catch (err) {
         res.status(400).json({ error: err.message });
