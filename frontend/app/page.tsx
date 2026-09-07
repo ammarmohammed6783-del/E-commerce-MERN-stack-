@@ -12,6 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import ClothTypes from "@/features/home/components/ClothTypes";
 
 export default async function Home() {
   const arrivals = await getNewArrivals();
@@ -51,7 +52,7 @@ export default async function Home() {
             </Carousel>
           </div>
 
-          <div className="mb-10 flex flex-col gap-4 border-b border-stone-300 pb-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mb-10 mt-25 flex flex-col gap-4 border-b border-stone-300 pb-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-emerald-700">
                 Curated for you
@@ -80,6 +81,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <ClothTypes />
     </div>
   );
 }

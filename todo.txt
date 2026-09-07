@@ -1,3 +1,0 @@
-2. handle the stay updated card style
-3. handle the card data and if needed the model of the produc
-5. generate the top selling products in web
