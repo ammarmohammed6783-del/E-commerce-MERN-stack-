@@ -16,7 +16,6 @@ import {
 
 import {
     Breadcrumb,
-    BreadcrumbEllipsis,
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
@@ -35,7 +34,7 @@ import {
 
 
 export default async function Page({
-    searchParams,
+    searchParams
 }: {
     searchParams: Promise<{
         category?: string;
@@ -174,6 +173,32 @@ export default async function Page({
                 <div className="grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-14 lg:items-start">
 
                     {/* Sidebar */}
+                    {/* 
+                    4
+                    4
+                    4
+                    4
+                    4
+                    4
+
+                    4
+                    4
+                    4
+                    4
+                    4
+
+                    4
+                    4
+
+                    4
+                    4
+                    4
+
+                    4
+
+                    4
+                    4
+                    */}
                     <aside className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">
 
                         <div className="flex items-center justify-between">
@@ -217,23 +242,18 @@ export default async function Page({
 
                     {/* Product area */}
                     <div>
-
                         {/* Product cards */}
                         <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
-
                             {categoryProducts.length > 0 ? (
-
                                 categoryProducts.map((product) => (
-                                    <Card
-                                        product={product}
-                                        key={product._id}
-                                    />
+                                    <Link href={`/products/${product._id}`} key={product._id}>
+                                        <Card
+                                            product={product}
+                                        />
+                                    </Link>
                                 ))
-
                             ) : (
-
                                 <div className="rounded-2xl border border-dashed border-stone-300 bg-white px-6 py-24 text-center sm:col-span-2 xl:col-span-3">
-
                                     <p className="text-lg font-bold text-stone-900">
                                         Nothing here yet
                                     </p>
@@ -241,11 +261,8 @@ export default async function Page({
                                     <p className="mt-2 text-sm text-stone-500">
                                         Try another category to keep browsing.
                                     </p>
-
                                 </div>
-
                             )}
-
                         </div>
 
                         {/* Pagination */}
@@ -349,7 +366,6 @@ export default async function Page({
                                 </PaginationContent>
                             </Pagination>
                         )}
-
                     </div>
                 </div>
             </section>

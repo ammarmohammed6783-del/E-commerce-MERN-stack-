@@ -38,7 +38,7 @@ exports.getProducts = async (req, res, next) => {
             currentPage: page,
         });
     } catch (err) {
-        const error = AppError(
+        const error = new AppError(
             "something went wrong fetching data",
             500
         );
@@ -55,7 +55,7 @@ exports.getTopSelling = async (req, res, next) => {
 
         res.status(200).json(products);
     } catch (err) {
-        const error = AppError("something went wrong fetching data", 500)
+        const error = new AppError("something went wrong fetching data", 500)
         next(error)
     }
 };
@@ -70,7 +70,7 @@ exports.getProductById = async (req, res, next) => {
         }
         res.json(product);
     } catch (err) {
-        const error = AppError("something went wrong fetching data", 500)
+        const error = new AppError("something went wrong fetching data", 500)
         next(error)
     }
 };
