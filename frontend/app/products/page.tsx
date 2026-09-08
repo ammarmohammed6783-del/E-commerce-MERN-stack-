@@ -29,8 +29,13 @@ export default async function Page({
 
                     <nav aria-label="Product categories" className="mt-8 flex flex-wrap gap-2">
                         {["all", "casual", "formal", "gym", "party"].map((item) => {
+                            /*
+                                If category is null or undefined, use "all" instead.
+                                then compare item with "()" and return the active on looping
+                                href --> compare item with all and return.
+                            */
                             const isActive = item === (category ?? "all");
-                            const href = item === "all" ? "/products" : `/products?category=${item}`;
+                            const href = item === "all" ? "/products?category=all" : `/products?category=${item}`;
 
                             return (
                                 <Link

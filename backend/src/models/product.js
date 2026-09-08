@@ -62,7 +62,7 @@ const productSchema = new Schema(
         category: {
             type: String,
             required: true,
-            enum: ["casual", "formal", "gym", "party"]
+            enum: ["all", "casual", "formal", "gym", "party"]
         },
         variants: [variantSchema],
         reviews: [reviewSchema],

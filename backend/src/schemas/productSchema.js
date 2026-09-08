@@ -39,7 +39,7 @@ const createProductSchema = z.object({
         .min(1, "Product description is required"),
 
     category: z
-        .enum(["casual", "formal", "gym", "party"]),
+        .enum(["all", "casual", "formal", "gym", "party"]),
 
     soldCount: z
         .number()
@@ -65,7 +65,7 @@ const updateProductSchema = z.object({
         .optional(),
 
     category: z
-        .enum(["casual", "formal", "gym", "party"])
+        .enum(["all", "casual", "formal", "gym", "party"])
         .optional(),
 
     variants: z
