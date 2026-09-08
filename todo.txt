@@ -1,7 +1,10 @@
 1. create navigation links path in the first of each nested pages (as a component)
-2. fetching the category's products
-3. applying filters on it
 
 
 1. product page individually
 2. cart page
+
+
+breadcrump
+pagination
+cards < >

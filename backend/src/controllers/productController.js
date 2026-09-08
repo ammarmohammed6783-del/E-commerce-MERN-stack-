@@ -7,24 +7,45 @@ exports.getProducts = async (req, res, next) => {
     try {
         const filter = {};
 
+        // Filter by category if provided
         if (req.query.category) {
             filter.category = req.query.category;
         }
 
-        const limit = Number(req.query.limit) || 0;
+        // Pagination
+        const limit = Number(req.query.limit) || 6;
+        const page = Number(req.query.page) || 1;
 
+        const skip = (page - 1) * limit;
+
+        // Get products for current page
         const products = await Product
             .find(filter)
             .sort({ createdAt: -1 })
+            .skip(skip)
             .limit(limit);
 
-        res.json(products);
+        // Get total number of products matching the filter
+        const totalProducts = await Product.countDocuments(filter);
+
+        // Calculate total pages
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        res.json({
+            products,
+            totalProducts,
+            totalPages,
+            currentPage: page,
+        });
     } catch (err) {
-        const error = AppError("something went wrong fetching data", 500);
+        const error = AppError(
+            "something went wrong fetching data",
+            500
+        );
+
         next(error);
     }
 };
-
 
 exports.getTopSelling = async (req, res, next) => {
     try {
