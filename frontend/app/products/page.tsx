@@ -12,6 +12,28 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 
+
+
+import {
+    Breadcrumb,
+    BreadcrumbEllipsis,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+// import { Button } from "@/components/ui/button"
+// import {
+//     DropdownMenu,
+//     DropdownMenuContent,
+//     DropdownMenuGroup,
+//     DropdownMenuItem,
+//     DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu"
+
+
+
 export default async function Page({
     searchParams,
 }: {
@@ -36,21 +58,23 @@ export default async function Page({
         <main className="min-h-screen bg-stone-50">
 
             {/* Header */}
-            <section className="border-b border-stone-200 bg-white">
-                <div className="mx-auto max-w-7xl px-4 pb-10 pt-12 sm:px-6 lg:px-8 lg:pb-14 lg:pt-16">
+            <section className="relative overflow-hidden border-b border-stone-200 bg-white">
+                <div className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full border-[40px] border-emerald-100/70" aria-hidden="true" />
+                <div className="pointer-events-none absolute bottom-0 left-0 h-1 w-1/3 bg-emerald-500" aria-hidden="true" />
+                <div className="mx-auto max-w-7xl px-4 pb-12 pt-14 sm:px-6 sm:pb-14 lg:px-8 lg:pb-20 lg:pt-24">
 
-                    <div className="max-w-3xl">
+                    <div className="max-w-3xl space-y-5">
                         <p className="text-xs font-bold uppercase tracking-[0.28em] text-emerald-700">
                             The collection
                         </p>
 
-                        <h1 className="mt-3 text-4xl font-black tracking-tight text-stone-950 sm:text-5xl">
+                        <h1 className="text-4xl font-black tracking-tight text-stone-950 sm:text-5xl lg:text-6xl">
                             {category
                                 ? `${category} essentials`
                                 : "Everything worth wearing"}
                         </h1>
 
-                        <p className="mt-4 max-w-2xl text-base leading-7 text-stone-500 sm:text-lg">
+                        <p className="max-w-2xl text-base leading-7 text-stone-500 sm:text-lg sm:leading-8">
                             Thoughtfully chosen pieces for the moments that fill
                             your calendar. Find your next favorite in the edit below.
                         </p>
@@ -59,7 +83,7 @@ export default async function Page({
                     {/* Categories */}
                     <nav
                         aria-label="Product categories"
-                        className="mt-8 flex flex-wrap gap-2"
+                        className="relative mt-12 flex flex-wrap gap-3 border-t border-stone-100 pt-6"
                     >
                         {["all", "casual", "formal", "gym", "party"].map(
                             (item) => {
@@ -88,13 +112,39 @@ export default async function Page({
                         )}
                     </nav>
                 </div>
+                <div className="mx-auto max-w-7xl px-4 pb-5 sm:px-6 lg:px-8">
+                    <Breadcrumb>
+                        <BreadcrumbList className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-400">
+                            <BreadcrumbItem>
+                                <BreadcrumbLink className="transition-colors hover:text-emerald-700" render={<Link href="/">Home</Link>} />
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator />
+                            {/* <BreadcrumbItem>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger render={<Button size="icon-sm" variant="ghost"><BreadcrumbEllipsis /><span className="sr-only">Toggle menu</span></Button>} />
+                                <DropdownMenuContent align="start">
+                                    <DropdownMenuGroup>
+                                        <DropdownMenuItem>Documentation</DropdownMenuItem>
+                                        <DropdownMenuItem>Themes</DropdownMenuItem>
+                                        <DropdownMenuItem>GitHub</DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </BreadcrumbItem> 
+                        <BreadcrumbSeparator /> */}
+                            <BreadcrumbItem>
+                                <BreadcrumbPage className="text-stone-900">{category ?? "All products"}</BreadcrumbPage>
+                            </BreadcrumbItem>
+                        </BreadcrumbList>
+                    </Breadcrumb>
+                </div>
             </section>
 
             {/* Products */}
-            <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+            <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
 
                 {/* Product count */}
-                <div className="mb-8 flex flex-col gap-4 border-b border-stone-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+                <div className="mb-10 flex flex-col gap-6 border-b border-stone-200 pb-8 sm:flex-row sm:items-end sm:justify-between lg:mb-14">
 
                     <div>
                         <p className="text-sm font-medium text-stone-500">
@@ -105,26 +155,26 @@ export default async function Page({
                             of {totalProducts}
                         </p>
 
-                        <h2 className="mt-1 text-2xl font-bold tracking-tight text-stone-950">
+                        <h2 className="mt-2 text-3xl font-bold tracking-tight text-stone-950">
                             Curated for you
                         </h2>
                     </div>
 
-                    <div className="flex items-center gap-3 text-sm text-stone-500">
+                    <div className="flex items-center gap-3 text-sm text-stone-500 sm:pb-1">
                         <span className="hidden sm:inline">
                             Sort by
                         </span>
 
-                        <span className="rounded-lg border border-stone-200 bg-white px-3 py-2 font-semibold text-stone-700 shadow-sm">
+                        <span className="rounded-lg border border-stone-200 bg-white px-4 py-2.5 font-semibold text-stone-700 shadow-sm">
                             Featured
                         </span>
                     </div>
                 </div>
 
-                <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start">
+                <div className="grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-14 lg:items-start">
 
                     {/* Sidebar */}
-                    <aside className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
+                    <aside className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">
 
                         <div className="flex items-center justify-between">
 
@@ -139,7 +189,7 @@ export default async function Page({
 
                         </div>
 
-                        <div className="mt-5 space-y-4 border-t border-stone-100 pt-5 text-sm text-stone-600">
+                        <div className="mt-6 space-y-5 border-t border-stone-100 pt-6 text-sm text-stone-600">
 
                             <div className="flex items-center justify-between">
                                 <span>Category</span>
@@ -169,7 +219,7 @@ export default async function Page({
                     <div>
 
                         {/* Product cards */}
-                        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                        <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
 
                             {categoryProducts.length > 0 ? (
 
@@ -182,7 +232,7 @@ export default async function Page({
 
                             ) : (
 
-                                <div className="rounded-2xl border border-dashed border-stone-300 bg-white px-6 py-16 text-center sm:col-span-2 xl:col-span-3">
+                                <div className="rounded-2xl border border-dashed border-stone-300 bg-white px-6 py-24 text-center sm:col-span-2 xl:col-span-3">
 
                                     <p className="text-lg font-bold text-stone-900">
                                         Nothing here yet
@@ -200,7 +250,7 @@ export default async function Page({
 
                         {/* Pagination */}
                         {totalPages > 1 && (
-                            <Pagination className="mt-10">
+                            <Pagination className="mt-14 border-t border-stone-200 pt-8">
                                 <PaginationContent>
 
                                     {/* Previous */}
@@ -221,8 +271,8 @@ export default async function Page({
                                     <PaginationItem>
                                         <PaginationLink
                                             href={`/products${category
-                                                    ? `?category=${category}&page=1`
-                                                    : "?page=1"
+                                                ? `?category=${category}&page=1`
+                                                : "?page=1"
                                                 }`}
                                             isActive={currentPage === 1}
                                         >
@@ -250,8 +300,8 @@ export default async function Page({
                                             <PaginationItem key={pageNumber}>
                                                 <PaginationLink
                                                     href={`/products${category
-                                                            ? `?category=${category}&page=${pageNumber}`
-                                                            : `?page=${pageNumber}`
+                                                        ? `?category=${category}&page=${pageNumber}`
+                                                        : `?page=${pageNumber}`
                                                         }`}
                                                     isActive={currentPage === pageNumber}
                                                 >
@@ -272,8 +322,8 @@ export default async function Page({
                                         <PaginationItem>
                                             <PaginationLink
                                                 href={`/products${category
-                                                        ? `?category=${category}&page=${totalPages}`
-                                                        : `?page=${totalPages}`
+                                                    ? `?category=${category}&page=${totalPages}`
+                                                    : `?page=${totalPages}`
                                                     }`}
                                                 isActive={currentPage === totalPages}
                                             >
