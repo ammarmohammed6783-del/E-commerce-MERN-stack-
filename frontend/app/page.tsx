@@ -83,6 +83,11 @@ export default async function Home() {
       </section>
 
       <ClothTypes />
+
+      <div>
+        <h1>our happy customers</h1>
+        <p>here</p>
+      </div>
     </div>
   );
 }
