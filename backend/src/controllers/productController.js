@@ -7,8 +7,7 @@ exports.getProducts = async (req, res, next) => {
     try {
         const filter = {};
 
-        // Filter by category if provided
-        if (req.query.category) {
+        if (req.query.category && req.query.category !== "all") {
             filter.category = req.query.category;
         }
 

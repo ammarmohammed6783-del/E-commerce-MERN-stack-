@@ -92,7 +92,7 @@ export default async function Page({
 
                                 const href =
                                     item === "all"
-                                        ? "/products"
+                                        ? "/products?category=all"
                                         : `/products?category=${item}`;
 
                                 return (
@@ -132,7 +132,7 @@ export default async function Page({
                         </BreadcrumbItem> 
                         <BreadcrumbSeparator /> */}
                             <BreadcrumbItem>
-                                <BreadcrumbPage className="text-stone-900">{category ?? "All products"}</BreadcrumbPage>
+                                <BreadcrumbPage className="text-stone-900">{category}</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -171,34 +171,6 @@ export default async function Page({
                 </div>
 
                 <div className="grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-14 lg:items-start">
-
-                    {/* Sidebar */}
-                    {/* 
-                    4
-                    4
-                    4
-                    4
-                    4
-                    4
-
-                    4
-                    4
-                    4
-                    4
-                    4
-
-                    4
-                    4
-
-                    4
-                    4
-                    4
-
-                    4
-
-                    4
-                    4
-                    */}
                     <aside className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">
 
                         <div className="flex items-center justify-between">

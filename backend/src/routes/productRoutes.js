@@ -14,7 +14,7 @@ const {
 
 router.get("/", productController.getProducts); // remove authMiddleware bec i can show them to anyone even if he is not logged in
 router.get("/top-selling", productController.getTopSelling);
-router.get("/:id", authMiddleware, productController.getProductById);
+router.get("/:id", productController.getProductById); // remove authMiddleware bec i can show them to anyone even if he is not logged in
 
 // used by admin
 router.post(
