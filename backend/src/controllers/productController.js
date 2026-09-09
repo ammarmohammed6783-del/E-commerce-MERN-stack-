@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const User = require("../models/user");
 const AppError = require("../utils/AppError")
 
 // GET /products            -> all products
@@ -20,6 +21,7 @@ exports.getProducts = async (req, res, next) => {
         // Get products for current page
         const products = await Product
             .find(filter)
+            .populate("reviews.user", "userName")
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);
@@ -132,8 +134,27 @@ exports.createReview = async (req, res, next) => {
 
         const { stars, review } = req.body;
 
+        const user = await User.findById(req.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                error: "User not found"
+            });
+        }
+
+        console.log("USER ID:", req.userId);
+        console.log("USER:", user);
+        console.log("USERNAME:", user.userName);
+
+        if (!user.userName) {
+            return res.status(400).json({
+                error: "Current user does not have a userName"
+            });
+        }
+
         product.reviews.push({
-            user: req.userId,
+            user: user._id,
+            userName: user.userName,
             stars,
             review
         });
@@ -143,6 +164,8 @@ exports.createReview = async (req, res, next) => {
         res.status(201).json({
             message: "Review added successfully",
             review: {
+                user: user._id,
+                userName: user.userName,
                 stars,
                 review
             }

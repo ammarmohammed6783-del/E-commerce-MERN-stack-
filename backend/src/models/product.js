@@ -7,18 +7,29 @@ const reviewSchema = new Schema({
         ref: "User",
         required: true
     },
+
+    userName: {
+        type: String,
+        required: true
+    },
+
     stars: {
         type: Number,
         min: 1,
         max: 5,
         required: true
     },
-    review: String,
+
+    review: {
+        type: String
+    },
+
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
+
 
 const variantSchema = new Schema({
     size: {
