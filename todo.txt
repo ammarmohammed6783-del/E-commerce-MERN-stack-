@@ -1,4 +1,6 @@
 1. product page individually
+    add to cart btn: send the varients to backend and accessing the items in frontend using zustand
+    the creating review form
 2. cart page
 
 
