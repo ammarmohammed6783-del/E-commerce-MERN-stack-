@@ -4,16 +4,21 @@ export async function apiFetch(
     endpoint: string,
     options?: RequestInit
 ) {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken =
+        typeof window !== "undefined"
+            ? localStorage.getItem("accessToken")
+            : null;
 
     return fetch(`${API_URL}${endpoint}`, {
         ...options,
         credentials: "include",
         headers: {
             "Content-Type": "application/json",
-            ...(accessToken && {
-                Authorization: `Bearer ${accessToken}`,
-            }),
+
+            ...(accessToken
+                ? { Authorization: `Bearer ${accessToken}` }
+                : {}),
+
             ...options?.headers,
         },
     });

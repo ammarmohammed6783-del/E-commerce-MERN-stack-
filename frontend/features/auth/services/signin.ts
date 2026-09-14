@@ -1,10 +1,10 @@
-import { apiFetch } from "@/lib/api";
+import { apiClient } from "@/lib/api-client";
 
 export default async function signin(
     email: string,
     password: string
 ) {
-    const response = await apiFetch("/auth/signin", {
+    const response = await apiClient("/auth/signin", {
         method: "POST",
         body: JSON.stringify({
             email,
@@ -17,9 +17,6 @@ export default async function signin(
     if (!response.ok) {
         throw new Error(data.msg || "Failed to sign in");
     }
-
-    // Save the short-lived access token
-    localStorage.setItem("accessToken", data.accessToken);
 
     return data;
 }

@@ -1,13 +1,15 @@
-import { apiFetch } from "@/lib/api";
+import { apiClient } from "@/lib/api-client";
 
 export default async function logout() {
-    const response = await apiFetch("/auth/logout", {
+    const response = await apiClient("/auth/logout", {
         method: "POST",
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-        throw new Error("Failed to logout");
+        throw new Error(data.msg || "Failed to logout");
     }
 
-    localStorage.removeItem("accessToken");
+    return data;
 }

@@ -1,17 +1,17 @@
-import { apiFetch } from "@/lib/api";
+import { apiClient } from "@/lib/api-client";
 
 export default async function refreshToken() {
-    const response = await apiFetch("/auth/refresh", {
+    const response = await apiClient("/auth/refresh", {
         method: "POST",
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.msg || "Session expired");
+        throw new Error(
+            data.msg || "Failed to refresh access token"
+        );
     }
 
-    localStorage.setItem("accessToken", data.newAccessToken);
-
-    return data.newAccessToken;
+    return data;
 }

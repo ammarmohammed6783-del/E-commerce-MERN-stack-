@@ -2,28 +2,25 @@ const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
     try {
-        const authHeader = req.headers.authorization;
+        const { accessToken } = req.cookies;
 
-        if (!authHeader) {
+        if (!accessToken) {
             return res.status(401).json({
-                msg: "No token provided"
+                msg: "No access token provided",
             });
         }
-
-        const accessToken = authHeader.split(" ")[1];
 
         const decoded = jwt.verify(
             accessToken,
             process.env.ACCESS_TOKEN_SECRET
         );
 
-        req.userId = decoded.userId; // It's simply copying the user ID from the verified JWT payload into req.userId.
+        req.userId = decoded.userId;
 
         next();
-
     } catch (err) {
         return res.status(401).json({
-            msg: "Invalid token"
+            msg: "Invalid or expired access token",
         });
     }
 };

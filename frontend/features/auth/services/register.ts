@@ -1,16 +1,16 @@
-import { apiFetch } from "@/lib/api";
+import { apiClient } from "@/lib/api-client";
 
 export default async function register(
+    userName: string,
     email: string,
-    password: string,
-    userName: string
+    password: string
 ) {
-    const response = await apiFetch("/auth/register", {
+    const response = await apiClient("/auth/register", {
         method: "POST",
         body: JSON.stringify({
+            userName,
             email,
             password,
-            userName,
         }),
     });
 
@@ -19,8 +19,6 @@ export default async function register(
     if (!response.ok) {
         throw new Error(data.msg || "Failed to register");
     }
-
-    localStorage.setItem("accessToken", data.accessToken);
 
     return data;
 }
