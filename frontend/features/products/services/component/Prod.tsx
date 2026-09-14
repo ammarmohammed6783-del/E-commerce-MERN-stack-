@@ -2,6 +2,7 @@
 
 import { Product } from "@/types/product";
 import { useMemo, useState } from "react";
+import addToCart from "../addToCart";
 
 const colorToHex: Record<string, string> = {
     black: "#1c1917",
@@ -133,8 +134,8 @@ export default function Prod({ product }: CardProps) {
         );
     };
 
-    const sendVarients = () => {
-        
+    const sendVarients = async () => {
+        await addToCart();
     }
 
     return (

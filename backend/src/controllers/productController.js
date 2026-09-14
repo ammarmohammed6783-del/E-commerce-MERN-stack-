@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Cart = require("../models/cart");
 const User = require("../models/user");
 const AppError = require("../utils/AppError")
 
@@ -78,17 +79,30 @@ exports.getProductById = async (req, res, next) => {
 
 
 
+exports.addToCart = async (req, res, next) => {
+    try {
+        const cart = await Cart.create({
+            user: req.userId,
+            items: req.body.items
+        });
+
+        console.log(cart);
+
+        res.status(201).json(cart);
+    } catch (err) {
+        console.log(err);
+        const error = new AppError("something went wrong fetching data", 500)
+        next(error)
+    }
+};
+
+
+
 // will be used by the admin
 // POST /api/products
 exports.createProduct = async (req, res) => {
     try {
-        console.log("BODY:", req.body);
-        console.log("SOLD COUNT:", req.body.soldCount);
-
         const product = await Product.create(req.body);
-
-        console.log("CREATED PRODUCT:", product);
-
         res.status(201).json(product);
     } catch (err) {
         res.status(400).json({ error: err.message });

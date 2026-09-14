@@ -16,6 +16,8 @@ router.get("/", productController.getProducts); // remove authMiddleware bec i c
 router.get("/top-selling", productController.getTopSelling);
 router.get("/:id", productController.getProductById); // remove authMiddleware bec i can show them to anyone even if he is not logged in
 
+router.post("/addToCart", authMiddleware, productController.addToCart)
+
 // used by admin
 router.post(
     "/",
