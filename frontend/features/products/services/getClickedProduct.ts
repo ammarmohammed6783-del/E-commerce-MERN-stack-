@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import { apiClient } from "@/lib/api-client";
 import type { Product } from "@/types/product";
 
 // type ProductResponse = {
@@ -6,7 +6,7 @@ import type { Product } from "@/types/product";
 // };
 
 export default async function getClickedProduct(id: string) {
-    const response = await apiFetch(
+    const response = await apiClient(
         `/products/${id}`,
         {
             method: "GET",

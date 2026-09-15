@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import { apiServer } from "@/lib/api-server";
 import type { Product } from "@/types/product";
 
 type ProductsResponse = {
@@ -6,7 +6,7 @@ type ProductsResponse = {
 };
 
 export default async function getNewArrivals(): Promise<Product[]> {
-    const response = await apiFetch("/products?limit=5", {
+    const response = await apiServer("/products?limit=5", {
         method: "GET",
     });
 

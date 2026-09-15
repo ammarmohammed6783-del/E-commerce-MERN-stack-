@@ -1,19 +1,15 @@
-import { apiFetch } from "@/lib/api";
+import { apiClient } from "@/lib/api-client";
 
 export default async function addToCart() {
-    const response = await apiFetch(
+    const response = await apiClient(
         `/products/addToCart`,
         {
             method: "POST",
         }
     );
 
-    console.log("STATUS:", response.status);
-    console.log("URL:", response.url);
-
     if (!response.ok) {
         const error = await response.text();
-        console.log("ERROR:", error);
 
         throw new Error("Failed to fetch product");
     }

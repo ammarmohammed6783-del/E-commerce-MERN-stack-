@@ -1,4 +1,4 @@
-import { apiFetch } from "@/lib/api";
+import { apiServer } from "@/lib/api-server";
 import type { Product } from "@/types/product";
 
 type ProductsResponse = {
@@ -22,7 +22,7 @@ export default async function getProductByCategory(
     params.set("page", page ?? "1");
     params.set("limit", "6");
 
-    const response = await apiFetch(
+    const response = await apiServer(
         `/products?${params.toString()}`,
         {
             method: "GET",

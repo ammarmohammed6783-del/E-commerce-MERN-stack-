@@ -2,7 +2,6 @@ use cloudinary
 
 1. product page individually
     add to cart btn: send the varients to backend and accessing the items in frontend using zustand
-    ((solve the problem of the product controllers functions that needs access token to be passed in the auth middleware))
     the creating review form
 2. cart page
 

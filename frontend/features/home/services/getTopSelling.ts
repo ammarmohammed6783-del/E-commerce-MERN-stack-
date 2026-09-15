@@ -1,8 +1,8 @@
-import { apiFetch } from "@/lib/api";
+import { apiServer } from "@/lib/api-server";
 import type { Product } from "@/types/product";
 
 export default async function getTopSelling(): Promise<Product[]> {
-    const response = await apiFetch("/products/top-selling", {
+    const response = await apiServer("/products/top-selling", {
         method: "GET",
     });
 
