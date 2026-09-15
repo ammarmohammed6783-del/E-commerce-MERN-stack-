@@ -1,4 +1,4 @@
-import { apiClient } from "@/lib/api-client";
+import { apiServer } from "@/lib/api-server";
 import type { Product } from "@/types/product";
 
 // type ProductResponse = {
@@ -6,16 +6,12 @@ import type { Product } from "@/types/product";
 // };
 
 export default async function getClickedProduct(id: string) {
-    const response = await apiClient(
+    const response = await apiServer(
         `/products/${id}`,
         {
             method: "GET",
         }
     );
-
-    console.log("ID:", id);
-    console.log("STATUS:", response.status);
-    console.log("URL:", response.url);
 
     if (!response.ok) {
         const error = await response.text();
