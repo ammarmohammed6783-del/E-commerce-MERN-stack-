@@ -7,7 +7,7 @@ const validate = require("../middleware/validate");
 const { updateCartSchemaItem, addToCartSchema } = require("../schemas/cartSchema")
 
 router.get("/", authMiddleware, cartController.getAllCartItems)
-router.post("/", authMiddleware, validate(addToCartSchema), cartController.addCartItem)
+router.post("/addToCart", authMiddleware, validate(addToCartSchema), cartController.addCartItem)
 router.patch("/:id", authMiddleware, validate(updateCartSchemaItem), cartController.updateCartItem)
 router.delete("/:id", authMiddleware, cartController.deleteCartItem)
 

@@ -134,9 +134,16 @@ export default function Prod({ product }: CardProps) {
         );
     };
 
-    const sendVarients = async () => {
-        await addToCart();
-    }
+    const sendVariants = async () => {
+        await addToCart(
+            product._id,
+            {
+                size: selectedSize,
+                color: selectedColor,
+            },
+            selectedQuantity
+        );
+    };
 
     return (
         <section className="grid grid-cols-1 gap-8 rounded-[2rem] border border-stone-200 bg-white md:grid-cols-[0.92fr_1.08fr] md:p-10">
@@ -488,7 +495,7 @@ export default function Prod({ product }: CardProps) {
                 </div>
 
                 <div className="mt-8 flex items-center gap-4 border-t border-stone-200 pt-6">
-                    <button onClick={sendVarients} className="flex-1 rounded-xl bg-stone-950 px-7 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:bg-stone-700">
+                    <button onClick={sendVariants} className="flex-1 rounded-xl bg-stone-950 px-7 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:bg-stone-700">
                         Add to Cart
                     </button>
                 </div>

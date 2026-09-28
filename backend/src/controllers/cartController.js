@@ -17,10 +17,9 @@ exports.addCartItem = async (req, res, next) => {
         const { product, variant, quantity } = req.body;
 
         let cart = await Cart.findOne({
-            user: req.userId
+            user: req.userId,
         });
 
-        // If user doesn't have a cart yet
         if (!cart) {
             cart = await Cart.create({
                 user: req.userId,
@@ -28,16 +27,15 @@ exports.addCartItem = async (req, res, next) => {
                     {
                         product,
                         variant,
-                        quantity
-                    }
-                ]
+                        quantity,
+                    },
+                ],
             });
         } else {
-            // User already has a cart
             cart.items.push({
                 product,
                 variant,
-                quantity
+                quantity,
             });
 
             await cart.save();
@@ -45,14 +43,15 @@ exports.addCartItem = async (req, res, next) => {
 
         res.status(201).json({
             msg: "Cart item added successfully",
-            cart
+            cart,
         });
-
     } catch (err) {
-        next(AppError(
-            "Something went wrong while adding the cart item",
-            500
-        ));
+        next(
+            AppError(
+                "Something went wrong while adding the cart item",
+                500
+            )
+        );
     }
 };
 
