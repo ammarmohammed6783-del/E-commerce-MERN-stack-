@@ -11,12 +11,12 @@ const cookieOptions = {
 
 const accessTokenCookieOptions = {
     ...cookieOptions,
-    maxAge: 15 * 60 * 1000, // 15 minutes
+    maxAge: 24 * 60 * 60 * 1000,
 };
 
 const refreshTokenCookieOptions = {
     ...cookieOptions,
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
 exports.signin = async (req, res, next) => {
@@ -217,21 +217,20 @@ exports.refresh = async (req, res, next) => {
     }
 };
 
+
 exports.logout = async (req, res, next) => {
     try {
-        // Remove access token
-        res.clearCookie(
-            "accessToken",
-            cookieOptions
-        );
+        res.clearCookie("accessToken", {
+            ...cookieOptions,
+            path: "/",
+        });
 
-        // Remove refresh token
-        res.clearCookie(
-            "refreshToken",
-            cookieOptions
-        );
+        res.clearCookie("refreshToken", {
+            ...cookieOptions,
+            path: "/",
+        });
 
-        res.status(200).json({
+        return res.status(200).json({
             msg: "Logged out successfully",
         });
     } catch (err) {
