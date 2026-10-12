@@ -106,7 +106,6 @@ export default function ProfilePage() {
             }
 
             router.replace("/");
-            router.refresh();
         } catch (error) {
             setLogoutError(
                 error instanceof Error ? error.message : "Unable to log out."

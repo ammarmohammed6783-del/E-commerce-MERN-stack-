@@ -4,7 +4,7 @@ use cloudinary
     add to cart btn: send the varients to backend and accessing the items in frontend using zustand
     the creating review form
 2. cart page
-3. authentication of the users
+done: 3. authentication of the users
 
 breadcrump
 pagination
