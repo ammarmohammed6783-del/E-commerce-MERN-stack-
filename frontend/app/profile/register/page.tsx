@@ -35,9 +35,8 @@ export default function RegisterPage() {
             router.replace("/");
             router.refresh();
         } catch (err) {
-            setError(
-                err instanceof Error ? err.message : "Something went wrong"
-            );
+            // err instanceof Error ? err.message :
+            setError("Something went wrong");
         } finally {
             setLoading(false);
         }
