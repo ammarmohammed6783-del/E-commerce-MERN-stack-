@@ -79,6 +79,18 @@ exports.getProductById = async (req, res, next) => {
 
 
 
+/*
+    there is a problem here about adding the requested item to add to cart
+        
+    {
+        "user": "6a9bfc25f8e20380ea6d6901",
+        "items": [],
+        "_id": "6acce17684d0e76e9c421ac3",
+        "createdAt": "2026-10-12T13:32:38.753Z",
+        "updatedAt": "2026-10-12T13:32:38.753Z",
+        "__v": 0
+    }
+*/
 exports.addToCart = async (req, res, next) => {
     try {
         const cart = await Cart.create({
